@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fiction_podcast_playbook</title>
+    <style>
+@import url('https://cdn.jsdelivr.net/gh/fonts-archive/Charter/Charter.css');
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible Next';
+    src: url(fonts/AtkinsonHyperlegibleNext-Regular.woff2) format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible Next';
+    src: url(fonts/AtkinsonHyperlegibleNext-Bold.woff2) format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Atkinson Hyperlegible Next';
+    src: url(fonts/AtkinsonHyperlegibleNext-Italic.woff2) format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 18px; }
+
+@media (max-width: 600px) {
+    html { font-size: 22px; }
+}
+
+body {
+    font-family: 'Atkinson Hyperlegible Next', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: rgb(25, 25, 25);
+    background: rgb(247, 247, 247);
+    max-width: 38em;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Charter, Georgia, 'Times New Roman', serif;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-top: 1.5em;
+    margin-bottom: 0.625em;
+}
+
+h1 { font-size: 1.6rem; color: rgb(51, 51, 51); }
+h2 { font-size: 1.35rem; color: rgb(51, 51, 51); }
+h3 { font-size: 1.15rem; font-weight: bold; color: rgb(51, 51, 51); }
+
+p { margin: 0 0 1em 0; }
+
+blockquote {
+    margin: 1em 0;
+    padding-left: 1.5em;
+    border-left: 3px solid rgb(200, 200, 200);
+    color: rgb(85, 85, 85);
+}
+
+ul, ol { margin: 1em 0; padding-left: 1.5em; }
+li { margin-bottom: 0.3em; }
+
+a { color: rgb(25, 25, 25); text-decoration: underline; }
+a:hover { color: rgb(26, 195, 255); }
+
+code {
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.85em;
+    background: rgb(235, 235, 235);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+}
+
+pre {
+    background: rgb(235, 235, 235);
+    padding: 1em;
+    overflow-x: auto;
+    border-radius: 3px;
+}
+
+pre code { background: none; padding: 0; }
+
+hr { border: none; border-top: 1px solid rgb(200, 200, 200); margin: 2em 0; }
+
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid rgb(200, 200, 200); padding: 0.5em; text-align: left; }
+th { background: rgb(235, 235, 235); }
+
+img { max-width: 100%; height: auto; }
+
+.title-block {
+    text-align: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.title-block h1 { margin: 0 0 1.5em 0; font-size: 1.8rem; }
+.title-block .byline { font-size: 0.9rem; color: rgb(85, 85, 85); margin-bottom: 0.3em; }
+.title-block .author { font-size: 1.15rem; }
+
+#toc {
+    margin-top: 2em;
+    margin-bottom: 0;
+    padding-bottom: 2em;
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+#toc-heading { margin-top: 0; font-size: 1.2rem; color: rgb(51, 51, 51); }
+#toc ol, #toc ul { padding-left: 1.5em; margin: 0; font-family: Charter, Georgia, 'Times New Roman', serif; list-style: none; }
+#toc li { margin-bottom: 0.5em; }
+#toc a { font-family: Charter, Georgia, 'Times New Roman', serif; color: rgb(25, 25, 25); text-decoration: none; }
+#toc a:hover { color: rgb(26, 195, 255); text-decoration: underline; }
+#toc ul ul { margin-top: 0.3em; font-size: 0.9em; }
+#toc ul ul li { margin-bottom: 0.3em; }
+#toc ul ul ul { font-size: 1em; }
+
+.chapter {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+.chapter:last-of-type { border-bottom: none; }
+.chapter h2:first-child { margin-top: 0; }
+
+.back-to-top {
+    display: block;
+    margin-top: 2em;
+    font-size: 0.75rem;
+    color: rgb(153, 153, 153);
+    text-decoration: none;
+}
+
+.back-to-top:hover { color: rgb(26, 195, 255); }
+
+/* ── screenplay layout ──────────────────────────────────────────────── */
+
+body.screenplay {
+    max-width: 6in;
+    line-height: 1.5;
+}
+
+body.screenplay h1 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 1.5em;
+}
+
+.scene-heading {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.character {
+    margin-left: 2.2in;
+    margin-bottom: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.dialogue {
+    margin-left: 1in;
+    margin-right: 1.5in;
+    margin-top: 0;
+    margin-bottom: 0.75em;
+}
+
+.character + .dialogue {
+    margin-top: 0;
+}
+
+.action {
+    margin-top: 0;
+    margin-bottom: 0.75em;
+}
+
+.section-label {
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    color: rgb(120, 120, 120);
+}
+
+body.screenplay hr.section-break {
+    margin: 2.5em 0 0.5em 0;
+}
+
+/* ── screenplay responsive: tablet ─────────────────────────────────── */
+
+@media (max-width: 768px) {
+    .dialogue {
+        margin-left: 0.75in;
+        margin-right: 1in;
+    }
+}
+
+/* ── screenplay responsive: mobile ─────────────────────────────────── */
+
+@media (max-width: 600px) {
+    body.screenplay {
+        max-width: 100%;
+    }
+    .character {
+        margin-left: 0;
+        text-align: center;
+        font-weight: bold;
+    }
+    .dialogue {
+        margin-left: 1em;
+        margin-right: 0;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body { color: rgb(204, 204, 204); background: rgb(26, 26, 26); }
+    h1 { color: rgb(224, 224, 224); }
+    h2 { color: rgb(224, 224, 224); }
+    h3 { color: rgb(224, 224, 224); }
+    blockquote { border-left-color: rgb(102, 102, 102); color: rgb(170, 170, 170); }
+    a { color: rgb(204, 204, 204); }
+    code, pre { background: rgb(40, 40, 40); }
+    hr { border-top-color: rgb(102, 102, 102); }
+    th, td { border-color: rgb(102, 102, 102); }
+    th { background: rgb(40, 40, 40); }
+    .title-block { border-bottom-color: rgb(102, 102, 102); }
+    .title-block .byline { color: rgb(170, 170, 170); }
+    #toc { border-bottom-color: rgb(102, 102, 102); }
+    #toc-heading { color: rgb(224, 224, 224); }
+    #toc a { color: rgb(204, 204, 204); }
+    .chapter { border-bottom-color: rgb(51, 51, 51); }
+    .back-to-top { color: rgb(102, 102, 102); }
+    .section-label { color: rgb(153, 153, 153); }
+}
+    </style>
+</head>
+<body>
+<p><strong>Launching a Fiction Podcast Solo</strong></p>
+<p><strong>A Practical Playbook</strong></p>
+<p>Compiled March 2026</p>
+<p><strong>The single most important thing to know: finish your season (or most of it) before you publish episode one.</strong> Every experienced audio drama producer who has shared their process — from Tal Minear to the Limetown creators to Sean Howard (The White Vault) — converges on this point. Fiction podcasts fail not because of bad launch timing or wrong release cadence, but because solo producers announce before they have enough runway and burn out mid-season.</p>
+<p><strong>Serial Release Wins, and It’s Not Close</strong></p>
+<p>The data overwhelmingly favors weekly or biweekly serial release over binge drops. A 2025 Carnegie Mellon randomized field trial found that weekly release leads to <strong>48% greater short-term subscription retention</strong> compared to binge drops. Roku advertising data shows 71% of binge-title searches happen within three weeks of premiere, while weekly shows sustain interest far longer. Amazon Prime Video’s own data tells the same story from the other direction: roughly 75% of debut seasons drop all at once, but by season three, 100% of titles had switched to weekly rollout.</p>
+<p>Nearly every successful fiction podcast uses serial release. Welcome to Night Vale has released twice-monthly for 13+ years. The Magnus Archives ran weekly for 200 episodes. Homecoming released six episodes weekly — generating enough conversation to land an Amazon TV adaptation. Wolf 359 ran biweekly across 61 episodes, building a devoted Patreon base of 900+ patrons.</p>
+<p><strong>The practical consensus for indie fiction is the hybrid approach:</strong> launch with a trailer plus 2–3 episodes, then release weekly or biweekly. Scott Sigler, who built a career on serialized podcast fiction and became a #1 NYT bestselling author from podcast-to-book conversion, warns against the binge drop. Weekly releases built him a devoted audience — and asking them all to buy his book on the same day drove it to bestseller lists.</p>
+<p>For a solo producer, <strong>biweekly is the sweet spot</strong>. Weekly is achievable for lighter-production formats, but the demands of sound-designed audio drama make weekly nearly unsustainable alone. A reliable biweekly schedule beats an erratic weekly one every time.</p>
+<p><strong>A 20-Minute Episode Takes 30–40 Hours Solo</strong></p>
+<p>The production timeline data is remarkably consistent. For a solo producer creating a moderately sound-designed 20-minute fiction episode, expect <strong>25–40 total hours of work</strong>. The breakdown:</p>
+<p>Script writing: 5–15 hours from first draft through final polish. Voice recording and directing: 2–4 hours. Dialogue editing: 3–6 hours. Sound design: 8–20 hours (by far the largest single investment). Music selection or composition: 1–4 hours. Mixing and mastering: 2–5 hours. QC listening: 1–3 hours. Admin, publishing, promotion: 2–4 hours.</p>
+<p>What this means for cadence: a solo producer with moderate sound design can realistically complete <strong>one to two episodes per month</strong>. Heavy sound design drops that to one or fewer.</p>
+<p><strong>Burnout is the single most-cited risk in indie audio drama production.</strong> Tal Minear says flatly that running a weekly production where you’re the writer, audio editor, and entire marketing team is not sustainable. The mitigation strategies experienced producers recommend: build a large backlog before launching, release biweekly or monthly, use a seasonal format with planned hiatuses, keep episodes shorter, and write for your constraints — narrators reduce sound design burden.</p>
+<p><strong>September Is the Safest Bet, but Fiction Plays by Different Rules</strong></p>
+<p>Podcast listening follows predictable seasonal patterns. Buzzsprout data shows a dip during July and August, with fall representing peak listening. RedCircle recommends launching in early autumn if monetization matters, because ad rates increase as brands execute holiday strategies.</p>
+<p>But fiction podcasts have a meaningful exception. Pacific Content notes that listeners of narrative podcasts may be more inclined to listen on weekends or summer vacation when they have more time to dig into a serialized show. <strong>A summer launch for fiction may actually find an audience with more time and attention to give.</strong></p>
+<p>Horror fiction has an obvious sweet spot in October. The general advice is to avoid the late November through early January dead zone. The honest truth from Pacific Content is that marketing effort matters more than calendar date.</p>
+<p><strong>Three Episodes at Launch, with a Trailer Two Weeks Ahead</strong></p>
+<p>The industry consensus on minimum viable launch: <strong>a trailer plus three episodes</strong>. Spotify for Creators explicitly recommends three. The logic: three episodes give a new listener enough content to form a habit, provide multiple data points for algorithms, and give you more material to market across channels.</p>
+<p>For fiction specifically, The Cambridge Geek — who tracked audio fiction debuts for over 18 months — recommends releasing enough to get people hooked. If your story needs two or three episodes to really grab a listener, launch with all of them.</p>
+<p>Release your trailer two to four weeks before episode one with a concrete launch date. This gives apps time to index your show, lets listeners subscribe in advance, and creates a promotional window for outreach.</p>
+<p><strong>Set the Date Only After the Work Exists</strong></p>
+<p><strong>The practical middle ground, and the approach most experienced fiction podcast creators use, is a two-phase process.</strong> Phase one: work forward from production capacity, completing episodes without a public commitment, until you have at minimum half your season finished (ideally the whole thing). Phase two: once you have that buffer, set a concrete public launch date and work backward from it to plan marketing, trailer release, reviewer outreach, and cross-promotion.</p>
+<p>This eliminates the primary failure mode: announcing a date, falling behind on production, and either burning out or releasing subpar work.</p>
+<p>Robyn Paterson recommends working in blocks of <strong>6–10 episodes per season</strong>, noting that a monthly show on this model gives you two months of break/production time per year. Tal Minear puts months between recording and release as deliberate buffer. The seasonal structure — a contained run of episodes with planned hiatuses — is the most sustainable model for solo producers.</p>
+<p><strong>The Realistic Solo Producer’s Launch Sequence</strong></p>
+<p>The practical path synthesizes into a clear sequence:</p>
+<p>Write your full season outline and complete all scripts. Keep the season to 6–10 episodes. Produce episodes in batch, expecting each 20-minute episode to consume 30–40 hours. Build your buffer until you have at least half the season complete.</p>
+<p>Only then announce. Release a trailer with a specific launch date two to four weeks out. Launch with three episodes. Release the remaining episodes biweekly. Target September or early October if possible, but know that consistency matters more than the calendar.</p>
+<p><strong>The single most important insight across all this research is that fiction podcasts fail from production collapse, not from marketing mistakes.</strong> Every decision — release cadence, launch date, episode count — should be downstream of one question: can you actually sustain this?</p>
+<p><strong>Key Sources</strong></p>
+<p><em>Release Strategy &amp; Audience Data</em></p>
+<p>Carnegie Mellon (2025). Randomized field trial on drip vs. binge release and subscription retention.</p>
+<p>Luminate / Roku. Streaming search behavior data comparing binge and weekly release models.</p>
+<p>Amazon Prime Video. Internal release strategy evolution across debut and returning seasons.</p>
+<p><em>Fiction Podcast Case Studies</em></p>
+<p>Welcome to Night Vale (2012–present). Twice-monthly release, 13+ years sustained.</p>
+<p>Wolf 359 (2014–2017). Biweekly, 61 episodes, 900+ Patreon patrons.</p>
+<p>Homecoming (Gimlet, 2016). Weekly 6-episode season, adapted to Amazon TV.</p>
+<p>Limetown (Two-Up, 2015). Single pilot launch with targeted press campaign.</p>
+<p>The White Vault (Fool &amp; Scholar, 2017–present). Biweekly, 132 episodes.</p>
+<p><em>Production Timelines &amp; Sustainability</em></p>
+<p>Minear, T. “What does an audio drama producer do?” Medium.</p>
+<p>Stage 32. “How To Produce An Audio Drama.”</p>
+<p>Paterson, R. “Finishing Your Shows.” RobynPaterson.com.</p>
+<p>Simplecast. “Less is More: Refining the Scope of Your Audio Drama.”</p>
+<p>Oaten, T. (Lost Terminal). “So You Want To Make A Fiction Podcast?” 0atman.com.</p>
+<p><em>Launch Timing &amp; Strategy</em></p>
+<p>Pacific Content. “Yes, podcast launch dates do matter.”</p>
+<p>RedCircle Blog. “Best Time to Publish a Podcast.”</p>
+<p>The Podcast Host. “How Often Should I Release a Podcast?”</p>
+<p>The Cambridge Geek. “How to Launch your Audio Drama.”</p>
+<p>Sigler, S. Interview on serialized fiction podcast-to-book conversion. Author Media.</p>
+</body>
+</html>
